@@ -12,8 +12,6 @@ import java.time.Duration;
 import static org.junit.Assert.*;
 
 public class AccountNavigationTest {
-
-    private WebDriver driver;
     private final String email = "vladtest@yandex.rus";
     private final String password = "11111111";
 
@@ -48,36 +46,6 @@ public class AccountNavigationTest {
         assertTrue("Профиль не загрузился", profilePage.isProfileHeaderVisible());
         assertTrue("Кнопка выхода не найдена", profilePage.isLogoutButtonVisible());
     }
-
-//    @Test
-//    @DisplayName("Проверка переход по клику на «Конструктор» и на логотип Stellar Burgers")
-//    public void testNavigateFromProfileToConstructorAndLogo() {
-//        WebDriver driver = driverRule.getDriver();
-//        MainPage mainPage = new MainPage(driver);
-//        mainPage.clickLoginButton();
-//
-//        LoginPage loginPage = new LoginPage(driver);
-//        loginPage.login(email, password);
-//
-//        mainPage.clickAccountButton();
-//
-//        ProfilePage profilePage = new ProfilePage(driver);
-//        assertTrue("Профиль не загрузился", profilePage.isProfileHeaderVisible());
-//
-//        // Клик на "Конструктор"
-//        mainPage.clickConstructorLink();
-//        assertTrue("Не произошёл переход на главную через 'Конструктор'",
-//                mainPage.isOrderButtonVisible());
-//
-//        // Возврат в личный кабинет
-//        mainPage.clickAccountButton();
-//        assertTrue("Не загрузился личный кабинет повторно", profilePage.isProfileHeaderVisible());
-//
-//        // Клик на логотип
-//        mainPage.clickLogo();
-//        assertTrue("Не произошёл переход на главную через логотип",
-//                mainPage.isOrderButtonVisible());
-//    }
 
     @Test
     @DisplayName("Проверка перехода по клику на «Конструктор» из профиля")
@@ -148,8 +116,8 @@ public class AccountNavigationTest {
     @After
     @Step("Закрытие браузера")
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+        if (driverRule.getDriver() != null) {
+            driverRule.getDriver().quit();
         }
     }
 }

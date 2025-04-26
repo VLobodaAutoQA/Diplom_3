@@ -14,7 +14,6 @@ import java.time.Duration;
 import static org.junit.Assert.*;
 
 public class BurgerConstructorTest {
-    private WebDriver driver;
 
     @Rule
     public DriverRule driverRule = new DriverRule();
@@ -78,8 +77,8 @@ public class BurgerConstructorTest {
     @After
     @Step("Закрытие браузера")
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+        if (driverRule.getDriver() != null) {
+            driverRule.getDriver().quit();
         }
     }
 }

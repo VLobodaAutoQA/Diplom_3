@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import static org.junit.Assert.assertTrue;
 
 public class LoginTest {
-    private WebDriver driver;
     private final String email = "vladtest@yandex.rus";
     private final String password = "11111111";
 
@@ -84,8 +83,8 @@ public class LoginTest {
     @After
     @Step("Закрытие браузера")
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+        if (driverRule.getDriver() != null) {
+            driverRule.getDriver().quit();
         }
     }
 }

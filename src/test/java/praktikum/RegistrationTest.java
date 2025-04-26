@@ -11,8 +11,6 @@ import java.util.concurrent.TimeUnit;
 
 public class RegistrationTest {
 
-    private WebDriver driver;
-
     @Rule
     public DriverRule driverRule = new DriverRule();
 
@@ -64,8 +62,8 @@ public class RegistrationTest {
     @After
     @Step("Закрытие браузера")
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+        if (driverRule.getDriver() != null) {
+            driverRule.getDriver().quit();
         }
     }
 }
