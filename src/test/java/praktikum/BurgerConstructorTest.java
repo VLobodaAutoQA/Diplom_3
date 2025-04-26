@@ -27,8 +27,8 @@ public class BurgerConstructorTest {
     }
 
     @Test
-    @DisplayName("Проверка переходов к разделам: «Булки», «Соусы», «Начинки»")
-    public void testConstructorSectionNavigation() {
+    @DisplayName("Переход к разделу 'Соусы'")
+    public void testNavigateToSaucesTab() {
         WebDriver driver = driverRule.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -38,18 +38,41 @@ public class BurgerConstructorTest {
         WebElement activeSaucesTab = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[contains(@class, 'tab_tab_type_current')]//span[text()='Соусы']")));
         assertTrue("Раздел 'Соусы' должен быть активным", activeSaucesTab.isDisplayed());
+    }
 
+    @Test
+    @DisplayName("Переход к разделу 'Начинки'")
+    public void testNavigateToFillingsTab() {
+        WebDriver driver = driverRule.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        MainPage mainPage = new MainPage(driver);
         mainPage.clickFillingsTab();
 
         WebElement activeFillingsTab = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[contains(@class, 'tab_tab_type_current')]//span[text()='Начинки']")));
         assertTrue("Раздел 'Начинки' должен быть активным", activeFillingsTab.isDisplayed());
+    }
 
+    @Test
+    @DisplayName("Переход к разделу 'Булки' после перехода на другую вкладку")
+    public void testNavigateToBunsTab() {
+        WebDriver driver = driverRule.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        MainPage mainPage = new MainPage(driver);
+
+        // Сначала переключимся на другой раздел, например, "Соусы"
+        mainPage.clickSaucesTab();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[contains(@class, 'tab_tab_type_current')]//span[text()='Соусы']")));
+
+        // Теперь снова кликнем на "Булки"
         mainPage.clickBunsTab();
 
         WebElement activeBunsTab = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[contains(@class, 'tab_tab_type_current')]//span[text()='Булки']")));
-        assertTrue("Раздел 'Булки' должен быть активным", activeBunsTab.isDisplayed());
+        assertTrue("Раздел 'Булки' должен быть активным после переключения", activeBunsTab.isDisplayed());
     }
 
     @After

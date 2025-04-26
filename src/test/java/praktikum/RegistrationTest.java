@@ -2,6 +2,7 @@ package praktikum;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import io.restassured.response.Response;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 
@@ -11,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class RegistrationTest {
 
     private WebDriver driver;
-    private RegistrationPage registrationPage;
 
     @Rule
     public DriverRule driverRule = new DriverRule();
@@ -32,8 +32,17 @@ public class RegistrationTest {
         RegistrationPage registrationPage = new RegistrationPage(driver)
                 .openRegistrationPage();
         registrationPage.waitForModalToDisappear();
-        registrationPage.register("Vloboda", "vloboda" + System.currentTimeMillis() + "@yandex.rus", "11111111");
+        String email = "vloboda" + System.currentTimeMillis() + "@yandex.rus";
+        String password = "11111111";
+        registrationPage.register("Vloboda", email, password);
         Assert.assertTrue("Ожидалась переадресация на страницу входа", registrationPage.isLoginPageVisible());
+
+        // Теперь удаляем пользователя через API
+        UserClient userClient = new UserClient();
+        Response loginResponse = userClient.login(email, password);
+
+        String accessToken = loginResponse.body().jsonPath().getString("accessToken");
+        userClient.deleteUser(accessToken);
     }
 
     @Test

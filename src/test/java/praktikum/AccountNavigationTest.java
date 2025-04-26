@@ -49,9 +49,39 @@ public class AccountNavigationTest {
         assertTrue("Кнопка выхода не найдена", profilePage.isLogoutButtonVisible());
     }
 
+//    @Test
+//    @DisplayName("Проверка переход по клику на «Конструктор» и на логотип Stellar Burgers")
+//    public void testNavigateFromProfileToConstructorAndLogo() {
+//        WebDriver driver = driverRule.getDriver();
+//        MainPage mainPage = new MainPage(driver);
+//        mainPage.clickLoginButton();
+//
+//        LoginPage loginPage = new LoginPage(driver);
+//        loginPage.login(email, password);
+//
+//        mainPage.clickAccountButton();
+//
+//        ProfilePage profilePage = new ProfilePage(driver);
+//        assertTrue("Профиль не загрузился", profilePage.isProfileHeaderVisible());
+//
+//        // Клик на "Конструктор"
+//        mainPage.clickConstructorLink();
+//        assertTrue("Не произошёл переход на главную через 'Конструктор'",
+//                mainPage.isOrderButtonVisible());
+//
+//        // Возврат в личный кабинет
+//        mainPage.clickAccountButton();
+//        assertTrue("Не загрузился личный кабинет повторно", profilePage.isProfileHeaderVisible());
+//
+//        // Клик на логотип
+//        mainPage.clickLogo();
+//        assertTrue("Не произошёл переход на главную через логотип",
+//                mainPage.isOrderButtonVisible());
+//    }
+
     @Test
-    @DisplayName("Проверка переход по клику на «Конструктор» и на логотип Stellar Burgers")
-    public void testNavigateFromProfileToConstructorAndLogo() {
+    @DisplayName("Проверка перехода по клику на «Конструктор» из профиля")
+    public void testNavigateFromProfileToConstructor() {
         WebDriver driver = driverRule.getDriver();
         MainPage mainPage = new MainPage(driver);
         mainPage.clickLoginButton();
@@ -68,16 +98,29 @@ public class AccountNavigationTest {
         mainPage.clickConstructorLink();
         assertTrue("Не произошёл переход на главную через 'Конструктор'",
                 mainPage.isOrderButtonVisible());
+    }
 
-        // Возврат в личный кабинет
+    @Test
+    @DisplayName("Проверка перехода по клику на логотип Stellar Burgers из профиля")
+    public void testNavigateFromProfileToLogo() {
+        WebDriver driver = driverRule.getDriver();
+        MainPage mainPage = new MainPage(driver);
+        mainPage.clickLoginButton();
+
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login(email, password);
+
         mainPage.clickAccountButton();
-        assertTrue("Не загрузился личный кабинет повторно", profilePage.isProfileHeaderVisible());
+
+        ProfilePage profilePage = new ProfilePage(driver);
+        assertTrue("Профиль не загрузился", profilePage.isProfileHeaderVisible());
 
         // Клик на логотип
         mainPage.clickLogo();
         assertTrue("Не произошёл переход на главную через логотип",
                 mainPage.isOrderButtonVisible());
     }
+
 
     @Test
     @DisplayName("Проверка выход по кнопке «Выйти» в личном кабинете")

@@ -54,6 +54,7 @@ public class LoginTest {
         WebDriver driver = driverRule.getDriver();
         driver.get(EnvConfig.REGISTRATION_URL);
         RegistrationPage registrationPage = new RegistrationPage(driver);
+        registrationPage.waitForModalToDisappear();
         registrationPage.clickLoginFromRegistration();
 
         MainPage mainPage = new MainPage(driver);
